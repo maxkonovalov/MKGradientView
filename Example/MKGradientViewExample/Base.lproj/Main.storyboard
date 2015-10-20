@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MKGradientViewExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IPn-XU-KHF" customClass="MKGradientView" customModule="MKGradientViewExample" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.5" width="600" height="149.5"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="gradientType">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9P-A5-Hiz" customClass="MKGradientView" customModule="MKGradientViewExample" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="150.5" width="600" height="149"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="gradientType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0lC-3c-poR" customClass="MKGradientView" customModule="MKGradientViewExample" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="300.5" width="600" height="149.5"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="gradientType">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5W-Hz-Wqt" customClass="MKGradientView" customModule="MKGradientViewExample" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="451" width="600" height="149"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="gradientType">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0lC-3c-poR" firstAttribute="top" secondItem="d9P-A5-Hiz" secondAttribute="bottom" constant="1" id="2DF-0b-kRp"/>
+                            <constraint firstItem="d9P-A5-Hiz" firstAttribute="top" secondItem="IPn-XU-KHF" secondAttribute="bottom" constant="1" id="7Vn-cb-Mua"/>
+                            <constraint firstItem="IPn-XU-KHF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7lt-yo-LSL"/>
+                            <constraint firstAttribute="trailing" secondItem="v5W-Hz-Wqt" secondAttribute="trailing" id="92m-e1-ZFS"/>
+                            <constraint firstItem="v5W-Hz-Wqt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ITs-9h-qmc"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="v5W-Hz-Wqt" secondAttribute="bottom" id="N84-7C-SSt"/>
+                            <constraint firstItem="0lC-3c-poR" firstAttribute="height" secondItem="v5W-Hz-Wqt" secondAttribute="height" id="U1x-XJ-8jY"/>
+                            <constraint firstItem="0lC-3c-poR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WWc-Eg-xDL"/>
+                            <constraint firstItem="IPn-XU-KHF" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Y1Y-eq-ddR"/>
+                            <constraint firstAttribute="trailing" secondItem="d9P-A5-Hiz" secondAttribute="trailing" id="YoP-fQ-l2c"/>
+                            <constraint firstItem="d9P-A5-Hiz" firstAttribute="height" secondItem="0lC-3c-poR" secondAttribute="height" id="dSD-CO-45d"/>
+                            <constraint firstAttribute="trailing" secondItem="0lC-3c-poR" secondAttribute="trailing" id="gk6-YG-aKU"/>
+                            <constraint firstItem="v5W-Hz-Wqt" firstAttribute="top" secondItem="0lC-3c-poR" secondAttribute="bottom" constant="1" id="hLf-zA-WzJ"/>
+                            <constraint firstAttribute="trailing" secondItem="IPn-XU-KHF" secondAttribute="trailing" id="qJ7-5n-205"/>
+                            <constraint firstItem="IPn-XU-KHF" firstAttribute="height" secondItem="d9P-A5-Hiz" secondAttribute="height" id="w1L-xe-OCL"/>
+                            <constraint firstItem="d9P-A5-Hiz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="xmh-aS-8HJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bilinearGradientView" destination="v5W-Hz-Wqt" id="GHs-jq-x5C"/>
+                        <outlet property="conicalGradientView" destination="0lC-3c-poR" id="Veh-bf-Yjf"/>
+                        <outlet property="linearGradientView" destination="IPn-XU-KHF" id="fVz-JV-4U0"/>
+                        <outlet property="radialGradientView" destination="d9P-A5-Hiz" id="VUP-8P-DdW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="325" y="399"/>
+        </scene>
+    </scenes>
+</document>
