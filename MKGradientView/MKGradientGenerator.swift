@@ -66,6 +66,9 @@ public class MKGradientGenerator {
         }
         
         for (index, colorArray) in colors.enumerate() {
+            if gradientType != .Bilinear && index > 0 {
+                continue
+            }
             if colorArray == nil {
                 colors[index] = [UIColor.clearColor().CGColor]
             }
