@@ -4,7 +4,8 @@
 
 Highly customizable Core Graphics based gradient view
 
-![MKGradientView](MKGradientView.png?raw=true "MKGradientView")
+<img src="MKGradientView.png?raw=true" alt="MKGradientView" width=320>
+
 
 ## Features
 #### Available gradient types:
