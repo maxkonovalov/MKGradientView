@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var conicalGradientView: MKGradientView!
     @IBOutlet weak var bilinearGradientView: MKGradientView!
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden: Bool {
         return true
     }
 
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         
         /*** Linear gradient ***/
         
-        linearGradientView.type = .Linear
+        linearGradientView.type = .linear
         linearGradientView.colors = colors
         linearGradientView.startPoint = CGPoint(x: 0.0, y: 0.5)
         linearGradientView.endPoint = CGPoint(x: 1.0, y: 0.5)
@@ -41,24 +41,24 @@ class ViewController: UIViewController {
         
         /*** Radial gradient ***/
         
-        radialGradientView.type = .Radial
+        radialGradientView.type = .radial
         radialGradientView.colors = colors
-        
-        
-        /*** Bilinear gradient ***/
-        
-        bilinearGradientView.type = .Bilinear
-        bilinearGradientView.colors = Array(colors.prefix(colors.count/2))
-        bilinearGradientView.colors2 = Array(colors.suffix(colors.count/2)).reverse()
         
         
         /*** Conical gradient ***/
         
-        conicalGradientView.type = .Conical
+        conicalGradientView.type = .conical
         
         // For smooth-looking conical gradient first and last colors should be the same
         colors.append(colors[0])
         conicalGradientView.colors = colors
+        
+        
+        /*** Bilinear gradient ***/
+        
+        bilinearGradientView.type = .bilinear
+        bilinearGradientView.colors = Array(colors.prefix(colors.count/2))
+        bilinearGradientView.colors2 = Array(colors.suffix(colors.count/2)).reversed()
         
     }
 

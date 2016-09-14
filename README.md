@@ -27,8 +27,8 @@ You can specify `Gradient Type`, `Start Color`, `End Color`, `Start Point`, `End
 ### Code
 ```swift
 let gradientView = MKGradientView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-gradientView.type = .Linear
-gradientView.colors = [UIColor.redColor(), UIColor.greenColor()]
+gradientView.type = .linear
+gradientView.colors = [.red, .green]
 gradientView.locations = [0, 1]
 gradientView.startPoint = CGPoint(x: 0, y: 0)
 gradientView.endPoint = CGPoint(x: 1, y: 1)
@@ -38,9 +38,9 @@ To set up a `Bilinear` gradient, you need to specify `colors2` array:
 
 ```swift
 let gradientView = MKGradientView(frame: CGRect(x: 100, y: 0, width: 100, height: 100))
-gradientView.type = .Bilinear
-gradientView.colors = [UIColor.redColor(), UIColor.yellowColor()]
-gradientView.colors2 = [UIColor.blueColor(), UIColor.cyanColor()]
+gradientView.type = .bilinear
+gradientView.colors = [.red, .yellow]
+gradientView.colors2 = [.blue, .cyan]
 view.addSubview(gradientView)
 ```
 
@@ -50,8 +50,8 @@ view.addSubview(gradientView)
 Note that there also seems to be an isse with overall Swift performance compared to Objective-C and C implementation, especially in DEBUG builds. In that case, setting `Optimization Level` in Build Settings to `Fast [-O]` for Debug configuration should achieve better performance.
 
 ## Requirements
-- iOS 7.0
-- Xcode 7, Swift 2.0 
+- iOS 8.0
+- Xcode 8, Swift 3
 
 ## License
 `MKGradientView` is available under the MIT license. See the LICENSE file for more info.

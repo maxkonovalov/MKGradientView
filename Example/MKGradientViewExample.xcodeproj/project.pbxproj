@@ -12,8 +12,8 @@
 		50F22C551BD52857006983CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50F22C531BD52857006983CF /* Main.storyboard */; };
 		50F22C571BD52857006983CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50F22C561BD52857006983CF /* Assets.xcassets */; };
 		50F22C5A1BD52857006983CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50F22C581BD52857006983CF /* LaunchScreen.storyboard */; };
-		50F22C641BD5288E006983CF /* MKGradientGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F22C621BD5288E006983CF /* MKGradientGenerator.swift */; settings = {ASSET_TAGS = (); }; };
-		50F22C651BD5288E006983CF /* MKGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F22C631BD5288E006983CF /* MKGradientView.swift */; settings = {ASSET_TAGS = (); }; };
+		50F22C641BD5288E006983CF /* MKGradientGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F22C621BD5288E006983CF /* MKGradientGenerator.swift */; };
+		50F22C651BD5288E006983CF /* MKGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F22C631BD5288E006983CF /* MKGradientView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,11 +105,12 @@
 		50F22C441BD52857006983CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Max Konovalov";
 				TargetAttributes = {
 					50F22C4B1BD52857006983CF = {
 						CreatedOnToolsVersion = 7.0.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -191,8 +192,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -236,8 +239,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -256,6 +261,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -267,11 +273,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchScreen;
 				INFOPLIST_FILE = MKGradientViewExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxkonovalov.MKGradientViewExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -281,10 +288,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchScreen;
 				INFOPLIST_FILE = MKGradientViewExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.maxkonovalov.MKGradientViewExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

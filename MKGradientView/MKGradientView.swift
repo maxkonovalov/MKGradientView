@@ -26,58 +26,58 @@ import UIKit
 
 // MARK: - Gradient View
 
-public class MKGradientView: UIView {
+open class MKGradientView: UIView {
     
-    public var colors = [UIColor.clearColor(), UIColor.clearColor()] {
+    open var colors: [UIColor] = [.clear, .clear] {
         didSet {
-            (layer as! MKGradientLayer).colors = colors.map { $0.CGColor }
+            (layer as! MKGradientLayer).colors = colors.map { $0.cgColor }
         }
     }
     
-    public var colors2 = [UIColor.clearColor(), UIColor.clearColor()] {
+    open var colors2: [UIColor] = [.clear, .clear] {
         didSet {
-            (layer as! MKGradientLayer).colors2 = colors2.map { $0.CGColor }
+            (layer as! MKGradientLayer).colors2 = colors2.map { $0.cgColor }
         }
     }
     
-    public var locations: [Float]? {
+    open var locations: [Float]? {
         didSet {
             (layer as! MKGradientLayer).locations = locations
         }
     }
     
-    @IBInspectable public var startPoint: CGPoint = CGPoint(x: 0, y: 0) {
+    @IBInspectable open var startPoint: CGPoint = CGPoint(x: 0, y: 0) {
         didSet {
             (layer as! MKGradientLayer).startPoint = startPoint
         }
     }
     
-    @IBInspectable public var endPoint: CGPoint = CGPoint(x: 1, y: 1) {
+    @IBInspectable open var endPoint: CGPoint = CGPoint(x: 1, y: 1) {
         didSet {
             (layer as! MKGradientLayer).endPoint = endPoint
         }
     }
     
-    public var startPoint2: CGPoint = CGPoint(x: 0, y: 0) {
+    open var startPoint2: CGPoint = CGPoint(x: 0, y: 0) {
         didSet {
             (layer as! MKGradientLayer).startPoint2 = startPoint2
         }
     }
     
-    public var endPoint2: CGPoint = CGPoint(x: 1, y: 1) {
+    open var endPoint2: CGPoint = CGPoint(x: 1, y: 1) {
         didSet {
             (layer as! MKGradientLayer).endPoint2 = endPoint2
         }
     }
     
-    public var type: GradientType = .Linear {
+    open var type: GradientType = .linear {
         didSet {
             (layer as! MKGradientLayer).type = type
         }
     }
     
     
-    override public class func layerClass() -> AnyClass {
+    override open class var layerClass : AnyClass {
         return MKGradientLayer.self
     }
     
@@ -91,7 +91,7 @@ public class MKGradientView: UIView {
         setup()
     }
     
-    private func setup() {
+    fileprivate func setup() {
         //layer.contentsScale = UIScreen.mainScreen().scale
         layer.needsDisplayOnBoundsChange = true
         layer.setNeedsDisplay()
@@ -102,8 +102,7 @@ public class MKGradientView: UIView {
 
 // MARK: Interface Builder Additions
 
-
-@IBDesignable @available(*, unavailable, message = "This is reserved for Interface Builder")
+@IBDesignable @available(*, unavailable, message : "This is reserved for Interface Builder")
 extension MKGradientView {
     
     @IBInspectable public var gradientType: Int {
@@ -121,31 +120,31 @@ extension MKGradientView {
         set {
             if colors.isEmpty {
                 colors.append(newValue)
-                colors.append(UIColor.clearColor())
+                colors.append(UIColor.clear)
             } else {
                 colors[0] = newValue
             }
         }
         get {
-            return (colors.count >= 1) ? colors[0] : UIColor.clearColor()
+            return (colors.count >= 1) ? colors[0] : UIColor.clear
         }
     }
     
     @IBInspectable public var endColor: UIColor {
         set {
             if colors.isEmpty {
-                colors.append(UIColor.clearColor())
+                colors.append(UIColor.clear)
                 colors.append(newValue)
             } else {
                 colors[1] = newValue
             }
         }
         get {
-            return (colors.count >= 2) ? colors[1] : UIColor.clearColor()
+            return (colors.count >= 2) ? colors[1] : UIColor.clear
         }
     }
     
-    public override func prepareForInterfaceBuilder() {
+    open override func prepareForInterfaceBuilder() {
         // To improve IB performance, reduce generated image size
         layer.contentsScale = 0.25
     }
@@ -155,21 +154,21 @@ extension MKGradientView {
 
 // MARK: - Gradient Layer
 
-public class MKGradientLayer: CALayer {
+open class MKGradientLayer: CALayer {
     
     /* The array of CGColorRef objects defining the color of each gradient stop.
-    * For `.Bilinear` gradient type defines X-direction gradient stops. */
+    * For `.bilinear` gradient type defines X-direction gradient stops. */
     
-    public var colors: [CGColorRef] = [UIColor.clearColor().CGColor, UIColor.clearColor().CGColor] {
+    open var colors: [CGColor] = [UIColor.clear.cgColor, UIColor.clear.cgColor] {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    /* The array of Y-direction gradient stops for `.Bilinear` gradient type.
+    /* The array of Y-direction gradient stops for `.bilinear` gradient type.
     * Ignored for other gradient types. */
     
-    public var colors2: [CGColorRef] = [UIColor.clearColor().CGColor, UIColor.clearColor().CGColor] {
+    open var colors2: [CGColor] = [UIColor.clear.cgColor, UIColor.clear.cgColor] {
         didSet {
             setNeedsDisplay()
         }
@@ -180,19 +179,19 @@ public class MKGradientLayer: CALayer {
     * monotonically increasing. If a nil array is given, the stops are
     * assumed to spread uniformly across the [0.0, 1.0] range. The number
     * of elements must be equal to `colors` array count.
-    * Defines X-direction color locations for `.Bilinear` gradient type. */
+    * Defines X-direction color locations for `.bilinear` gradient type. */
     
-    public var locations: [Float]? {
+    open var locations: [Float]? {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    /* An optional array of Y-direction color locations for `.Bilinear`
+    /* An optional array of Y-direction color locations for `.bilinear`
     * gradient type. The number of elements must be equal to `colors2`
     * array count. Ignored for other gradient types. */
     
-    public var locations2: [Float]? {
+    open var locations2: [Float]? {
         didSet {
             setNeedsDisplay()
         }
@@ -205,31 +204,31 @@ public class MKGradientLayer: CALayer {
     * layer's bounds rectangle when drawn. (I.e. [0.0, 0.0] is the bottom-left
     * corner of the layer, [1.0, 1.0] is the top-right corner.)
     * The default values for gradient types are:
-    * `.Linear`:  [0.5, 0.0] -> [0.5, 1.0]
-    * `.Radial`:  [0.5, 0.5] -> [1.0, 0.5]
-    * `.Conical`: [0.5, 0.5] -> [1.0, 0.5]
-    * `.Bilinear` (X-direction): [0.0, 0.5] -> [1.0, 0.5] */
+    * `.linear`:  [0.5, 0.0] -> [0.5, 1.0]
+    * `.radial`:  [0.5, 0.5] -> [1.0, 0.5]
+    * `.conical`: [0.5, 0.5] -> [1.0, 0.5]
+    * `.bilinear` (X-direction): [0.0, 0.5] -> [1.0, 0.5] */
     
-    public var startPoint: CGPoint? {
+    open var startPoint: CGPoint? {
         didSet {
             setNeedsDisplay()
         }
     }
-    public var endPoint: CGPoint? {
+    open var endPoint: CGPoint? {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    /* The start and end points of the `.Bilinear` gradient's Y-direction,
+    /* The start and end points of the `.bilinear` gradient's Y-direction,
     * defaults to [0.5, 0.0] -> [0.5, 1.0]. Ignored for other gradient types. */
     
-    public var startPoint2: CGPoint? {
+    open var startPoint2: CGPoint? {
         didSet {
             setNeedsDisplay()
         }
     }
-    public var endPoint2: CGPoint? {
+    open var endPoint2: CGPoint? {
         didSet {
             setNeedsDisplay()
         }
@@ -237,7 +236,7 @@ public class MKGradientLayer: CALayer {
     
     /* The kind of gradient that will be drawn. */
     
-    public var type: GradientType = .Linear {
+    open var type: GradientType = .linear {
         didSet {
             setNeedsDisplay()
         }
@@ -246,12 +245,12 @@ public class MKGradientLayer: CALayer {
     
     // MARK: Content drawing
     
-    override public func drawInContext(ctx: CGContext) {
-        CGContextSetFillColorWithColor(ctx, backgroundColor)
-        CGContextFillRect(ctx, bounds)
+    override open func draw(in ctx: CGContext) {
+        ctx.setFillColor(backgroundColor!)
+        ctx.fill(bounds)
         
-        let img = MKGradientGenerator.gradientImageWithType(type, size: bounds.size, colors: colors, colors2: colors2, locations: locations, locations2: locations2, startPoint: startPoint, endPoint: endPoint, startPoint2: startPoint2, endPoint2: endPoint2, scale: contentsScale)
-        CGContextDrawImage(ctx, bounds, img)
+        let img = MKGradientGenerator.gradientImage(type: type, size: bounds.size, colors: colors, colors2: colors2, locations: locations, locations2: locations2, startPoint: startPoint, endPoint: endPoint, startPoint2: startPoint2, endPoint2: endPoint2, scale: contentsScale)
+        ctx.draw(img, in: bounds)
     }
     
 }
