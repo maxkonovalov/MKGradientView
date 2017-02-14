@@ -235,7 +235,7 @@ extension RGBA {
     }
     
     fileprivate init(_ color: CGColor) {
-        let c = color.components
+        let c = color.components?.map { min(max($0, 0.0), 1.0) }
         switch color.numberOfComponents {
         case 2:
             self.init(r: UInt8((c?[0])! * 0xff), g: UInt8((c?[0])! * 0xff), b: UInt8((c?[0])! * 0xff), a: UInt8((c?[1])! * 0xff))
