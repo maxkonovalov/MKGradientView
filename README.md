@@ -51,7 +51,7 @@ Note that there also seems to be an isse with overall Swift performance compared
 
 ## Requirements
 - iOS 8.0
-- Xcode 8, Swift 3
+- Xcode 9, Swift 4
 
 ## License
 `MKGradientView` is available under the MIT license. See the LICENSE file for more info.
