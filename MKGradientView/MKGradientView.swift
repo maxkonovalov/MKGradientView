@@ -236,7 +236,7 @@ open class MKGradientLayer: CALayer {
     // MARK: Content drawing
     
     override open func draw(in ctx: CGContext) {
-        ctx.setFillColor(backgroundColor!)
+        ctx.setFillColor(backgroundColor ?? UIColor.black.cgColor)
         ctx.fill(bounds)
         
         let img = MKGradientGenerator.gradientImage(type: type, size: bounds.size, colors: colors, colors2: colors2, locations: locations, locations2: locations2, startPoint: startPoint, endPoint: endPoint, startPoint2: startPoint2, endPoint2: endPoint2, scale: contentsScale)
