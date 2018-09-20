@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,7 +21,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IPn-XU-KHF" customClass="MKGradientView" customModule="MKGradientViewExample" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IPn-XU-KHF" customClass="MKGradientView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="166"/>
                                 <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="gradientType">
@@ -32,7 +36,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9P-A5-Hiz" customClass="MKGradientView" customModule="MKGradientViewExample" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9P-A5-Hiz" customClass="MKGradientView">
+                                <rect key="frame" x="0.0" y="167" width="375" height="166"/>
                                 <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="gradientType">
@@ -46,7 +51,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0lC-3c-poR" customClass="MKGradientView" customModule="MKGradientViewExample" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0lC-3c-poR" customClass="MKGradientView">
+                                <rect key="frame" x="0.0" y="334" width="375" height="166"/>
                                 <color key="backgroundColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="gradientType">
@@ -60,7 +66,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5W-Hz-Wqt" customClass="MKGradientView" customModule="MKGradientViewExample" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5W-Hz-Wqt" customClass="MKGradientView">
+                                <rect key="frame" x="0.0" y="501" width="375" height="166"/>
                                 <color key="backgroundColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="gradientType">
@@ -75,14 +82,14 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="0lC-3c-poR" firstAttribute="top" secondItem="d9P-A5-Hiz" secondAttribute="bottom" constant="1" id="2DF-0b-kRp"/>
                             <constraint firstItem="d9P-A5-Hiz" firstAttribute="top" secondItem="IPn-XU-KHF" secondAttribute="bottom" constant="1" id="7Vn-cb-Mua"/>
                             <constraint firstItem="IPn-XU-KHF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7lt-yo-LSL"/>
                             <constraint firstAttribute="trailing" secondItem="v5W-Hz-Wqt" secondAttribute="trailing" id="92m-e1-ZFS"/>
                             <constraint firstItem="v5W-Hz-Wqt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ITs-9h-qmc"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="v5W-Hz-Wqt" secondAttribute="bottom" id="N84-7C-SSt"/>
+                            <constraint firstAttribute="bottom" secondItem="v5W-Hz-Wqt" secondAttribute="bottom" id="N84-7C-SSt"/>
                             <constraint firstItem="0lC-3c-poR" firstAttribute="height" secondItem="v5W-Hz-Wqt" secondAttribute="height" id="U1x-XJ-8jY"/>
                             <constraint firstItem="0lC-3c-poR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WWc-Eg-xDL"/>
                             <constraint firstItem="IPn-XU-KHF" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Y1Y-eq-ddR"/>

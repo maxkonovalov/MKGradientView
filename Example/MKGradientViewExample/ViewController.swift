@@ -7,21 +7,18 @@
 //
 
 import UIKit
+import MKGradientView
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var linearGradientView: MKGradientView!
-    @IBOutlet weak var radialGradientView: MKGradientView!
-    @IBOutlet weak var conicalGradientView: MKGradientView!
-    @IBOutlet weak var bilinearGradientView: MKGradientView!
+    @IBOutlet weak var linearGradientView: GradientView!
+    @IBOutlet weak var radialGradientView: GradientView!
+    @IBOutlet weak var conicalGradientView: GradientView!
+    @IBOutlet weak var bilinearGradientView: GradientView!
     
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         var colors = [UIColor]()
         let n = 9
@@ -29,7 +26,7 @@ class ViewController: UIViewController {
             let color = UIColor(hue: CGFloat(i)/CGFloat(n), saturation: 1.0, brightness: 1.0, alpha: 1.0)
             colors.append(color)
         }
-        
+
         
         /*** Linear gradient ***/
         
@@ -59,7 +56,7 @@ class ViewController: UIViewController {
         bilinearGradientView.type = .bilinear
         bilinearGradientView.colors = Array(colors.prefix(colors.count/2))
         bilinearGradientView.colors2 = Array(colors.suffix(colors.count/2)).reversed()
-        
+
     }
 
 }
