@@ -91,7 +91,6 @@ internal final class GradientGenerator {
             }
         }
         
-        
         switch gradientType {
         case .linear:
             let g0 = startPoints[0] ?? CGPoint(x: 0.5, y: 0.0)
@@ -125,7 +124,7 @@ internal final class GradientGenerator {
     private class func uniformLocationsWithCount(_ count: Int) -> [Float] {
         var locations = [Float]()
         for i in 0..<count {
-            locations.append(Float(i)/Float(count-1))
+            locations.append(Float(i) / Float(count - 1))
         }
         return locations
     }
@@ -160,7 +159,7 @@ internal final class GradientGenerator {
         return Float(t)
     }
     
-    fileprivate class func interpolatedColor(_ t: Float, _ colors: [CGColor], _ locations: [Float]) -> RGBA {
+    private class func interpolatedColor(_ t: Float, _ colors: [CGColor], _ locations: [Float]) -> RGBA {
         assert(!colors.isEmpty)
         assert(colors.count == locations.count)
         
@@ -191,11 +190,9 @@ internal final class GradientGenerator {
         let color0 = RGBA(c0)
         let color1 = RGBA(c1)
         
-        return color0.interpolateTo(color1, p)
+        return color0.interpolate(to: color1, p)
     }
-    
 }
-
 
 // MARK: - Color Data
 
@@ -206,20 +203,20 @@ fileprivate struct RGBA: Equatable {
     var a: UInt8
 }
 
-extension RGBA {
+fileprivate extension RGBA {
     
-    fileprivate init() {
+    init() {
         self.init(r: 0, g: 0, b: 0, a: 0)
     }
     
-    fileprivate init(_ hex: Int) {
+    init(_ hex: Int) {
         let r = UInt8((hex >> 16) & 0xff)
         let g = UInt8((hex >> 08) & 0xff)
         let b = UInt8((hex >> 00) & 0xff)
         self.init(r: r, g: g, b: b, a: 0xff)
     }
     
-    fileprivate init(_ color: UIColor) {
+    init(_ color: UIColor) {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -228,52 +225,49 @@ extension RGBA {
         self.init(r: UInt8(r * 0xff), g: UInt8(g * 0xff), b: UInt8(b * 0xff), a: UInt8(a * 0xff))
     }
     
-    fileprivate init(_ color: CGColor) {
-        let c = color.components?.map { min(max($0, 0.0), 1.0) }
-        switch color.numberOfComponents {
+    init(_ color: CGColor) {
+        let c = color.components?.map { min(max($0, 0.0), 1.0) } ?? []
+        switch c.count {
         case 2:
-            self.init(r: UInt8((c?[0])! * 0xff), g: UInt8((c?[0])! * 0xff), b: UInt8((c?[0])! * 0xff), a: UInt8((c?[1])! * 0xff))
+            self.init(r: UInt8(c[0] * 0xff), g: UInt8(c[0] * 0xff), b: UInt8(c[0] * 0xff), a: UInt8(c[1] * 0xff))
         case 4:
-            self.init(r: UInt8((c?[0])! * 0xff), g: UInt8((c?[1])! * 0xff), b: UInt8((c?[2])! * 0xff), a: UInt8((c?[3])! * 0xff))
+            self.init(r: UInt8(c[0] * 0xff), g: UInt8(c[1] * 0xff), b: UInt8(c[2] * 0xff), a: UInt8(c[3] * 0xff))
         default:
             self.init()
         }
     }
     
-    fileprivate var uiColor: UIColor {
-        return UIColor(red: CGFloat(r)/0xff, green: CGFloat(g)/0xff, blue: CGFloat(b)/0xff, alpha: CGFloat(a)/0xff)
+    var uiColor: UIColor {
+        return UIColor(red: CGFloat(r) / 0xff, green: CGFloat(g) / 0xff, blue: CGFloat(b) / 0xff, alpha: CGFloat(a) / 0xff)
     }
     
-    fileprivate var cgColor: CGColor {
-        return self.uiColor.cgColor
+    var cgColor: CGColor {
+        return uiColor.cgColor
     }
     
-    fileprivate func interpolateTo(_ color: RGBA, _ t: Float) -> RGBA {
+    func interpolate(to color: RGBA, _ t: Float) -> RGBA {
         let r = lerp(t, self.r, color.r)
         let g = lerp(t, self.g, color.g)
         let b = lerp(t, self.b, color.b)
         let a = lerp(t, self.a, color.a)
         return RGBA(r: r, g: g, b: b, a: a)
     }
-    
 }
-
 
 // MARK: - Utility
 
-fileprivate func lerp(_ t: Float, _ a: UInt8, _ b: UInt8) -> UInt8 {
+private func lerp(_ t: Float, _ a: UInt8, _ b: UInt8) -> UInt8 {
     return UInt8(Float(a) + min(max(t, 0), 1) * (Float(b) - Float(a)))
 }
 
-fileprivate func lerp(_ value: Float, inRange: ClosedRange<Float>, outRange: ClosedRange<Float>) -> Float {
+private func lerp(_ value: Float, inRange: ClosedRange<Float>, outRange: ClosedRange<Float>) -> Float {
     return (value - inRange.lowerBound) * (outRange.upperBound - outRange.lowerBound) / (inRange.upperBound - inRange.lowerBound) + outRange.lowerBound
 }
 
-
 // MARK: - Extensions
 
-extension Array {
-    fileprivate subscript (safe index: Int) -> Element? {
+private extension Array {
+    subscript(safe index: Int) -> Element? {
         return indices ~= index ? self[index] : nil
     }
 }
