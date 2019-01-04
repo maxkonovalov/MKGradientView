@@ -152,7 +152,7 @@ open class GradientView: UIView {
         return GradientLayer.self
     }
     
-    override public init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
