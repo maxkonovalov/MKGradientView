@@ -74,7 +74,7 @@ view.addSubview(gradientView)
 
 ## Requirements
 - iOS 8.0
-- Xcode 10, Swift 4.2
+- Xcode 10, Swift 4+
 
 ## License
 `MKGradientView` is available under the MIT license. See the LICENSE file for more info.
