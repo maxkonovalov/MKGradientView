@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'MKGradientView'
-  s.version = '2.0.1'
+  s.version = '2.0.2'
   s.summary = 'Highly customizable Core Graphics based gradient view'
   s.homepage = 'https://github.com/maxkonovalov/MKGradientView'
   s.license = 'MIT'
