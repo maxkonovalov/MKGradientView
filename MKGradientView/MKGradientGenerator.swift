@@ -35,53 +35,97 @@ public enum GradientType: Int {
 }
 
 internal final class GradientGenerator {
-    
-    class func gradientImage(type: GradientType, size: CGSize, colors: [CGColor], colors2: [CGColor]? = nil, locations: [Float]? = nil, locations2: [Float]? = nil, startPoint: CGPoint? = nil, endPoint: CGPoint? = nil, startPoint2: CGPoint? = nil, endPoint2: CGPoint? = nil, scale: CGFloat? = nil) -> CGImage {
+    class func gradientImage(
+        type: GradientType,
+        size: CGSize,
+        colors: [CGColor],
+        colors2: [CGColor],
+        locations: [Float]?,
+        locations2: [Float]?,
+        startPoint: CGPoint?,
+        endPoint: CGPoint?,
+        startPoint2: CGPoint?,
+        endPoint2: CGPoint?,
+        scale: CGFloat? = nil
+    ) -> CGImage? {
         let w = Int(size.width * (scale ?? UIScreen.main.scale))
         let h = Int(size.height * (scale ?? UIScreen.main.scale))
+        
+        guard w > 0, h > 0 else {
+            return nil
+        }
+        
         let bitsPerComponent: Int = MemoryLayout<UInt8>.size * 8
         let bytesPerPixel: Int = bitsPerComponent * 4 / 8
+        
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
         
         var data = [RGBA]()
         
-        for y in 0..<h {
-            for x in 0..<w {
-                let c = pixelDataForGradient(type, colors: [colors, colors2], locations: [locations, locations2], startPoints: [startPoint, startPoint2], endPoints: [endPoint, endPoint2], point: CGPoint(x: x, y: y), size: CGSize(width: w, height: h))
+        for y in 0 ..< h {
+            for x in 0 ..< w {
+                let c = pixelDataForGradient(
+                    type,
+                    colors: [colors, colors2],
+                    locations: [locations, locations2],
+                    startPoints: [startPoint, startPoint2],
+                    endPoints: [endPoint, endPoint2],
+                    point: CGPoint(x: x, y: y),
+                    size: CGSize(width: w, height: h)
+                )
                 data.append(c)
             }
         }
         
-        let ctx = CGContext(data: &data, width: w, height: h, bitsPerComponent: bitsPerComponent, bytesPerRow: w * bytesPerPixel, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
+        // Fix for #8 - force retain `data` to prevent crash when CGContext uses the buffer
+        let image: CGImage? = withExtendedLifetime(&data) { (data: UnsafeMutableRawPointer) -> CGImage? in
+            guard let ctx = CGContext(
+                data: data,
+                width: w,
+                height: h,
+                bitsPerComponent: bitsPerComponent,
+                bytesPerRow: w * bytesPerPixel,
+                space: colorSpace,
+                bitmapInfo: bitmapInfo.rawValue
+            ) else {
+                return nil
+            }
+            
+            return ctx.makeImage()
+        }
         
-        let img = ctx?.makeImage()!
-        return img!
+        return image
     }
     
-    private class func pixelDataForGradient(_ gradientType: GradientType, colors: [[CGColor]?], locations: [[Float]?], startPoints: [CGPoint?], endPoints: [CGPoint?], point: CGPoint, size: CGSize) -> RGBA {
-        assert(colors.count > 0)
+    private class func pixelDataForGradient(
+        _ gradientType: GradientType,
+        colors: [[CGColor]],
+        locations: [[Float]?],
+        startPoints: [CGPoint?],
+        endPoints: [CGPoint?],
+        point: CGPoint,
+        size: CGSize
+    ) -> RGBA {
+        assert(!colors.isEmpty)
         
         var colors = colors
         var locations = locations
         var startPoints = startPoints
         var endPoints = endPoints
         
-        if gradientType == .bilinear && colors.count == 1 {
+        if gradientType == .bilinear, colors.count == 1 {
             colors.append([UIColor.clear.cgColor])
         }
         
         for (index, colorArray) in colors.enumerated() {
-            if gradientType != .bilinear && index > 0 {
+            if gradientType != .bilinear, index > 0 {
                 continue
             }
-            if colorArray == nil {
-                colors[index] = [UIColor.clear.cgColor]
-            }
             if locations.count <= index {
-                locations.append(uniformLocationsWithCount(colorArray!.count))
+                locations.append(uniformLocationsWithCount(colorArray.count))
             } else if locations[index] == nil {
-                locations[index] = uniformLocationsWithCount(colorArray!.count)
+                locations[index] = uniformLocationsWithCount(colorArray.count)
             }
             if startPoints.count <= index {
                 startPoints.append(nil)
@@ -96,17 +140,17 @@ internal final class GradientGenerator {
             let g0 = startPoints[0] ?? CGPoint(x: 0.5, y: 0.0)
             let g1 = endPoints[0] ?? CGPoint(x: 0.5, y: 1.0)
             let t = linearGradientStop(point, size, g0, g1)
-            return interpolatedColor(t, colors[0]!, locations[0]!)
+            return interpolatedColor(t, colors[0], locations[0]!)
         case .radial:
             let g0 = startPoints[0] ?? CGPoint(x: 0.5, y: 0.5)
             let g1 = endPoints[0] ?? CGPoint(x: 1.0, y: 0.5)
             let t = radialGradientStop(point, size, g0, g1)
-            return interpolatedColor(t, colors[0]!, locations[0]!)
+            return interpolatedColor(t, colors[0], locations[0]!)
         case .conical:
             let g0 = startPoints[0] ?? CGPoint(x: 0.5, y: 0.5)
             let g1 = endPoints[0] ?? CGPoint(x: 1.0, y: 0.5)
             let t = conicalGradientStop(point, size, g0, g1)
-            return interpolatedColor(t, colors[0]!, locations[0]!)
+            return interpolatedColor(t, colors[0], locations[0]!)
         case .bilinear:
             let g0x = startPoints[0] ?? CGPoint(x: 0.0, y: 0.5)
             let g1x = endPoints[0] ?? CGPoint(x: 1.0, y: 0.5)
@@ -114,8 +158,8 @@ internal final class GradientGenerator {
             let g0y = startPoints[1] ?? CGPoint(x: 0.5, y: 0.0)
             let g1y = endPoints[1] ?? CGPoint(x: 0.5, y: 1.0)
             let ty = linearGradientStop(point, size, g0y, g1y)
-            let c1 = interpolatedColor(tx, colors[0]!, locations[0]!)
-            let c2 = interpolatedColor(tx, colors[1]!, locations[1]!)
+            let c1 = interpolatedColor(tx, colors[0], locations[0]!)
+            let c2 = interpolatedColor(tx, colors[1], locations[1]!)
             let c = interpolatedColor(ty, [c1.cgColor, c2.cgColor], [0.0, 1.0])
             return c
         }
@@ -123,7 +167,7 @@ internal final class GradientGenerator {
     
     private class func uniformLocationsWithCount(_ count: Int) -> [Float] {
         var locations = [Float]()
-        for i in 0..<count {
+        for i in 0 ..< count {
             locations.append(Float(i) / Float(count - 1))
         }
         return locations
@@ -170,11 +214,11 @@ internal final class GradientGenerator {
         var c1 = colors.last!
         
         for (i, v) in locations.enumerated() {
-            if v > p0 && t >= v {
+            if v > p0, t >= v {
                 p0 = v
                 c0 = colors[i]
             }
-            if v < p1 && t <= v {
+            if v < p1, t <= v {
                 p1 = v
                 c1 = colors[i]
             }
@@ -184,7 +228,7 @@ internal final class GradientGenerator {
         if p0 == p1 {
             p = 0
         } else {
-            p = lerp(t, inRange: p0...p1, outRange: 0...1)
+            p = lerp(t, inRange: p0 ... p1, outRange: 0 ... 1)
         }
         
         let color0 = RGBA(c0)
@@ -196,24 +240,23 @@ internal final class GradientGenerator {
 
 // MARK: - Color Data
 
-fileprivate struct RGBA: Equatable {
+private struct RGBA: Equatable {
     var r: UInt8
     var g: UInt8
     var b: UInt8
     var a: UInt8
 }
 
-fileprivate extension RGBA {
-    
+private extension RGBA {
     init() {
         self.init(r: 0, g: 0, b: 0, a: 0)
     }
     
     init(_ hex: Int) {
-        let r = UInt8((hex >> 16) & 0xff)
-        let g = UInt8((hex >> 08) & 0xff)
-        let b = UInt8((hex >> 00) & 0xff)
-        self.init(r: r, g: g, b: b, a: 0xff)
+        let r = UInt8((hex >> 16) & 0xFF)
+        let g = UInt8((hex >> 08) & 0xFF)
+        let b = UInt8((hex >> 00) & 0xFF)
+        self.init(r: r, g: g, b: b, a: 0xFF)
     }
     
     init(_ color: UIColor) {
@@ -222,23 +265,23 @@ fileprivate extension RGBA {
         var b: CGFloat = 0
         var a: CGFloat = 0
         color.getRed(&r, green: &g, blue: &b, alpha: &a)
-        self.init(r: UInt8(r * 0xff), g: UInt8(g * 0xff), b: UInt8(b * 0xff), a: UInt8(a * 0xff))
+        self.init(r: UInt8(r * 0xFF), g: UInt8(g * 0xFF), b: UInt8(b * 0xFF), a: UInt8(a * 0xFF))
     }
     
     init(_ color: CGColor) {
         let c = color.components?.map { min(max($0, 0.0), 1.0) } ?? []
         switch c.count {
         case 2:
-            self.init(r: UInt8(c[0] * 0xff), g: UInt8(c[0] * 0xff), b: UInt8(c[0] * 0xff), a: UInt8(c[1] * 0xff))
+            self.init(r: UInt8(c[0] * 0xFF), g: UInt8(c[0] * 0xFF), b: UInt8(c[0] * 0xFF), a: UInt8(c[1] * 0xFF))
         case 4:
-            self.init(r: UInt8(c[0] * 0xff), g: UInt8(c[1] * 0xff), b: UInt8(c[2] * 0xff), a: UInt8(c[3] * 0xff))
+            self.init(r: UInt8(c[0] * 0xFF), g: UInt8(c[1] * 0xFF), b: UInt8(c[2] * 0xFF), a: UInt8(c[3] * 0xFF))
         default:
             self.init()
         }
     }
     
     var uiColor: UIColor {
-        return UIColor(red: CGFloat(r) / 0xff, green: CGFloat(g) / 0xff, blue: CGFloat(b) / 0xff, alpha: CGFloat(a) / 0xff)
+        return UIColor(red: CGFloat(r) / 0xFF, green: CGFloat(g) / 0xFF, blue: CGFloat(b) / 0xFF, alpha: CGFloat(a) / 0xFF)
     }
     
     var cgColor: CGColor {

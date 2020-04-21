@@ -26,7 +26,6 @@ import UIKit
 
 @objc(MKGradientLayer)
 open class GradientLayer: CALayer {
-    
     /// The array of CGColorRef objects defining the color of each gradient stop.
     /// For `.bilinear` gradient type defines X-direction gradient stops.
     open var colors: [CGColor] = [UIColor.clear.cgColor, UIColor.clear.cgColor] {
@@ -103,17 +102,28 @@ open class GradientLayer: CALayer {
         }
     }
     
-    
     // MARK: Content drawing
     
-    override open func draw(in ctx: CGContext) {
+    open override func draw(in ctx: CGContext) {
         if let backgroundColor = backgroundColor {
             ctx.setFillColor(backgroundColor)
             ctx.fill(bounds)
         }
         
-        let img = GradientGenerator.gradientImage(type: type, size: bounds.size, colors: colors, colors2: colors2, locations: locations, locations2: locations2, startPoint: startPoint, endPoint: endPoint, startPoint2: startPoint2, endPoint2: endPoint2, scale: contentsScale)
-        ctx.draw(img, in: bounds)
+        if let img = GradientGenerator.gradientImage(
+            type: type,
+            size: bounds.size,
+            colors: colors,
+            colors2: colors2,
+            locations: locations,
+            locations2: locations2,
+            startPoint: startPoint,
+            endPoint: endPoint,
+            startPoint2: startPoint2,
+            endPoint2: endPoint2,
+            scale: contentsScale
+        ) {
+            ctx.draw(img, in: bounds)
+        }
     }
-    
 }
