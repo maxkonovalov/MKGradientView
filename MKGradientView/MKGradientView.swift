@@ -27,18 +27,17 @@ import UIKit
 @IBDesignable
 @objc(MKGradientView)
 open class GradientView: UIView {
-
-    @IBInspectable @available(*, unavailable, message : "This property is reserved for Interface Builder only.")
+    @IBInspectable @available(*, unavailable, message: "This property is reserved for Interface Builder only.")
     public var gradientType: Int {
         set {
-            self.type = GradientType(rawValue: newValue) ?? .linear
+            type = GradientType(rawValue: newValue) ?? .linear
         }
         get {
-            return self.type.rawValue
+            type.rawValue
         }
     }
-
-    @IBInspectable @available(*, unavailable, message : "This property is reserved for Interface Builder only.")
+    
+    @IBInspectable @available(*, unavailable, message: "This property is reserved for Interface Builder only.")
     public var startColor: UIColor {
         set {
             if colors.isEmpty {
@@ -52,8 +51,8 @@ open class GradientView: UIView {
             return (colors.count >= 1) ? colors[0] : UIColor.clear
         }
     }
-
-    @IBInspectable @available(*, unavailable, message : "This property is reserved for Interface Builder only.")
+    
+    @IBInspectable @available(*, unavailable, message: "This property is reserved for Interface Builder only.")
     public var endColor: UIColor {
         set {
             if colors.isEmpty {
@@ -67,7 +66,7 @@ open class GradientView: UIView {
             return (colors.count >= 2) ? colors[1] : UIColor.clear
         }
     }
-
+    
     /// The array of colors defining the color of each gradient stop.
     /// For `.bilinear` gradient type defines X-direction gradient stops.
     open var colors: [UIColor] = [.clear, .clear] {
@@ -75,7 +74,7 @@ open class GradientView: UIView {
             gradientLayer.colors = colors.map { $0.cgColor }
         }
     }
-
+    
     /// The array of Y-direction gradient stops for `.bilinear` gradient type.
     /// Ignored for other gradient types.
     open var colors2: [UIColor] = [.clear, .clear] {
@@ -83,7 +82,7 @@ open class GradientView: UIView {
             gradientLayer.colors2 = colors2.map { $0.cgColor }
         }
     }
-
+    
     /// An optional array of Floats defining the location of each gradient stop as a value in the range [0.0, 1.0]. The values must be monotonically increasing. If a nil array is given, the stops are assumed to spread uniformly across the [0.0, 1.0] range. The number of elements must be equal to `colors` array count.
     /// Defines X-direction color locations for `.bilinear` gradient type.
     open var locations: [Float]? {
@@ -91,7 +90,7 @@ open class GradientView: UIView {
             gradientLayer.locations = locations
         }
     }
-
+    
     /// An optional array of Y-direction color locations for `.bilinear` gradient type. The number of elements must be equal to `colors2` array count.
     /// Ignored for other gradient types.
     open var locations2: [Float]? {
@@ -99,7 +98,7 @@ open class GradientView: UIView {
             gradientLayer.locations2 = locations2
         }
     }
-
+    
     /// The start point of the gradient when drawn into the layer's coordinate space. The start point corresponds to the first gradient stop. The points are defined in a unit coordinate space that is then mapped to the layer's bounds rectangle when drawn. (I.e. [0.0, 0.0] is the bottom-left corner of the layer, [1.0, 1.0] is the top-right corner.).
     ///
     /// The default values for gradient types are:
@@ -113,14 +112,14 @@ open class GradientView: UIView {
             gradientLayer.startPoint = startPoint
         }
     }
-
+    
     /// The end point of the gradient when drawn into the layer's coordinate space. The end point corresponds to the last gradient stop. The points are defined in a unit coordinate space that is then mapped to the layer's bounds rectangle when drawn. (I.e. [0.0, 0.0] is the bottom-left corner of the layer, [1.0, 1.0] is the top-right corner.).
     @IBInspectable open var endPoint: CGPoint = CGPoint(x: 1, y: 1) {
         didSet {
             gradientLayer.endPoint = endPoint
         }
     }
-
+    
     /// The start point of the `.bilinear` gradient's Y-direction, defaults to [0.5, 0.0] -> [0.5, 1.0].
     /// Ignored for other gradient types.
     open var startPoint2: CGPoint = CGPoint(x: 0, y: 0) {
@@ -128,7 +127,7 @@ open class GradientView: UIView {
             gradientLayer.startPoint2 = startPoint2
         }
     }
-
+    
     /// The end point of the `.bilinear` gradient's Y-direction, defaults to [0.5, 0.0] -> [0.5, 1.0].
     /// Ignored for other gradient types.
     open var endPoint2: CGPoint = CGPoint(x: 1, y: 1) {
@@ -136,34 +135,34 @@ open class GradientView: UIView {
             gradientLayer.endPoint2 = endPoint2
         }
     }
-
+    
     /// Type of the gradient to be drawn.
     open var type: GradientType = .linear {
         didSet {
             gradientLayer.type = type
         }
     }
-
+    
     private var gradientLayer: GradientLayer {
         return layer as! GradientLayer
     }
-
-    override open class var layerClass : AnyClass {
+    
+    open override class var layerClass: AnyClass {
         return GradientLayer.self
     }
     
-    override public init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
     }
     
     private func commonInit() {
-        //layer.contentsScale = UIScreen.mainScreen().scale
+        // layer.contentsScale = UIScreen.mainScreen().scale
         layer.needsDisplayOnBoundsChange = true
         layer.setNeedsDisplay()
     }
@@ -172,5 +171,4 @@ open class GradientView: UIView {
         // To improve IB performance, reduce generated image size
         layer.contentsScale = 0.25
     }
-
 }
